@@ -1,40 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+#  Hashtag Sentiment Insights
 
-## Getting Started
+This project visualizes sentiment trends over time for different hashtags using a clean UI and interactive charts. It showcases dynamic routing, API handling, SWR-based data fetching, responsive design, and performance optimizations in a modern Next.js app.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+##  Features
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+###  Dynamic Routing
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **Route**: `/insights/[hashtag]`
+- Users can navigate to a specific hashtag page like `/insights/react`, `/insights/uri`, etc.
+- Uses `useRouter` to extract the hashtag from the URL and pass it to the data hook.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+###  Data Fetching with SWR
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Uses **SWR** to fetch sentiment trend data for the selected hashtag.
+- Endpoint: `/api/trends/[hashtag]`
+- Mock API returns sample sentiment data for different hashtags.
+- Artificial delay (1 second) simulates real-world latency for more realistic loading behavior.
 
-## Learn More
+###  Sentiment Chart
 
-To learn more about Next.js, take a look at the following resources:
+- Powered by `@mui/x-charts/LineChart`.
+- Displays sentiment trend line for 7 days.
+- Shows min/max sentiment markers with red (🔻) and green (🔺) indicators.
+- Custom time-formatted x-axis (e.g. "Apr 1").
+- Highlights trend direction with 📈 or 📉 emoji based on sentiment change.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+###  Performance Optimization
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `React.memo` wraps the chart to avoid unnecessary re-renders.
+- `useMemo` used to:
+  - Preprocess `xAxisData`, sentiment values.
+  - Find and render min/max sentiment markers.
+- `useCallback` used in handlers to avoid prop identity changes.
 
-## Deploy on Vercel
+###  Modular Component Design
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `HashtagTrendCard`: Central card component handling loading, error, chart rendering.
+- `HashtagSelector`: Lets users switch hashtags.
+- `SentimentChart`: Interactive, responsive chart visualization.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+###  Loading & Error UX
+
+- **Loading**: Shows spinner or fallback when fetching data.
+- **Error**: Displays a message and a **Retry** button when the API returns an error or 404.
+- Uses SWR’s `mutate()` to refresh data on retry.
+
+###  Layout and Design
+
+- Layout built with **Material UI** (`@mui/material`) for a polished look.
+- Responsive container (`Container`) with padding and typography hierarchy.
+- Back to Home button using MUI's `Button` and `Link`.
+- Headline and subtext describing the insight purpose.
+
+###  Mobile-First Responsive Design
+
+- Uses `useMediaQuery` to adjust chart height and layout for small screens.
+- All components are optimized for different breakpoints.
+
+---
+
+##  Displayed Information
+
+Each hashtag page shows:
+
+-  **Hashtag Title** — e.g. `#uri`
+-  **Date Range** — e.g. `Apr 1 - Apr 7, 2025`
+-  **Sentiment Line Chart** — Interactive and colored by theme
+-  **Min/Max Points** — Visual indicators on the graph
+- ⬆ **Trend Direction** — Shows 📈 or 📉 based on sentiment increase/decrease
+
+---
+
+##  Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| **Next.js** | Fullstack framework |
+| **SWR** | React hook for fetching + caching |
+| **Material UI (MUI)** | Component library |
+| **@mui/x-charts** | Charting library |
+| **TypeScript** | Type safety |
+| **React.memo/useMemo** | Performance tuning |
+| **Dynamic Imports** | Client-side only components with fallbacks |
+
+---
+
+##  Folder Structure Overview
+
+## Time Spent:
+5 hours
