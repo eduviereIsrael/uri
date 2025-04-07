@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { HashtagTrendData } from "@/lib/types"
 
-// Mock data for different hashtags
 const trendData = {
   uri: {
     hashtag: "#uri",

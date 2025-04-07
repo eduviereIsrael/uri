@@ -69,7 +69,7 @@ const SentimentChart: React.FC<SentimentChartProps> = React.memo(({ data }) => {
           },
           {
             id: "minmax",
-            data: xAxisData, // keep x-scale aligned
+            data: xAxisData, 
             scaleType: "time",
             valueFormatter: () => "",
           },

@@ -67,10 +67,10 @@ export type TrendDataPoint = {
   }
   
   export function getTrendData(hashtag: string): TrendData {
-    // Remove # if present and convert to lowercase
+ 
     const normalizedHashtag = hashtag.replace("#", "").toLowerCase()
   
-    // Return the data for the hashtag or the default data if not found
+ 
     return (
       trendDataMap[normalizedHashtag] || {
         ...defaultTrendData,

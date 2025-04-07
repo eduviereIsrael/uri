@@ -20,7 +20,6 @@ export function useThemeModeProvider(): ThemeModeContextType {
   const [mode, setMode] = useState<ThemeMode>("light")
 
   useEffect(() => {
-    // Get saved theme from localStorage or use system preference
     const savedMode = localStorage.getItem("themeMode") as ThemeMode
     if (savedMode) {
       setMode(savedMode)
@@ -30,9 +29,7 @@ export function useThemeModeProvider(): ThemeModeContextType {
   }, [])
 
   useEffect(() => {
-    // Save theme preference to localStorage
     localStorage.setItem("themeMode", mode)
-    // Apply theme class to document
     document.documentElement.classList.toggle("dark", mode === "dark")
   }, [mode])
 
